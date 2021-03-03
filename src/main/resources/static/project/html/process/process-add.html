@@ -1,0 +1,46 @@
+<div layout-fill layout="column" cg-busy="{promise:roleDetailLoadingLayer,minDuration:500}">
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>创建角色</div>
+        </div>
+    </md-toolbar>
+    <md-content flex="auto">
+        <div wizard="wizard" ng-if="show">
+            <wizard-step id="1">
+                <form name="roleForm" class="md-padding">
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>角色名</label>
+                        <input minlength="2" md-maxlength="30" required name="name" ng-model="item.name">
+                        <div ng-messages="roleForm.name.$error">
+                            <div ng-message="required">必填.</div>
+                            <div ng-message="md-maxlength">不要超过30个字符</div>
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                请在2-30字符以内
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                    <div layout="row" layout-align="start" flex>
+                        <md-input-container flex="100">
+                            <label>继承系统内置角色</label>
+                            <md-select name="parentId" ng-model="item.parentId" required
+                                       ng-change="changeRole(item.parentId)">
+                                <md-option ng-value="role.id" ng-repeat="role in selectRoles"
+                                           ng-if="role.type==='System'">
+                                    {{role.name}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="roleForm.parentId.$error">
+                                <div ng-message="required">必填.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </form>
+            </wizard-step>
+            <wizard-step id="2">
+                <tree data="treeData" api="noroot" type="checkbox" style="height: 78vh"></tree>
+            </wizard-step>
+        </div>
+    </md-content>
+</div>

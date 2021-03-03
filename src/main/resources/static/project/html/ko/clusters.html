@@ -1,0 +1,75 @@
+<div layout-fill class="content-backdrop" ng-controller="ClustersController" ng-cloak>
+    <div cg-busy="{promise:loadingLayer,minDuration:500}" layout="column" layout-fill>
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <div>集群列表</div>
+                <md-button class="md-primary" ng-click="authorizeCluster()"> <!--has-permission="CLOUD_SERVER:READ+GRANT"-->
+                    <md-icon>how_to_reg</md-icon>
+                    授权
+                </md-button>
+                <md-button class="md-primary" ng-click="syncKoClusters()"> <!--has-permission="CLOUD_ACCOUNT:READ+BATCH_SYNC"-->
+                    <md-icon>sync</md-icon>
+                    同步
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <div layout="row" flex>
+            <div class="md-padding" layout="column" flex="100">
+                <div flex layout="column" layout-fill>
+                    <table dynamic-table columns="columnsClusters" execute="getClusterList()">
+                        <tbody>·
+                            <tr ng-repeat="cluster in clusters">
+                                <td><!--has-permissions="CLOUD_ACCOUNT:READ+BATCH_SYNC,CLOUD_ACCOUNT:READ+BATCH_DELETE"-->
+                                    <md-checkbox md-no-ink aria-label="是否启用" ng-model="cluster.enable"
+                                                 class="md-primary"></md-checkbox>
+                                </td>
+                                <td>
+                                    <a style="cursor:pointer;text-decoration: underline" ng-click="showDetail(cluster,0)" >{{cluster.cloudAccountName}}</a>
+                                </td>
+                                <td>{{cluster.version == null ? "v1.14.1" : cluster.version}}</td>
+                                <!--<td>{{cluster.cloud_provider}}</td>-->
+                                <td>{{cluster.deployType == 1 ? "一主多节点" : "多主多节点"}}</td>
+                                <td>
+                                    {{cluster.node}}
+                                    <!--<a style="cursor:pointer;text-decoration: underline" ng-click="showDetail(item,1)" >{{cluster.node}}</a>-->
+                                </td>
+                                <td>{{!cluster.organizationName ? "默认组织" : cluster.organizationName}}</td>
+                                <td>{{!cluster.workspaceName ? "默认工作空间" : cluster.workspaceName}}</td>
+                                <td>{{cluster.resourceType == null ? "自动化创建" : cluster.resourceType}}</td>
+                                <td>{{cluster.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table-pagination pagination="pagination"></table-pagination>
+            </div>
+        </div>
+        <!--<div layout="row" flex>
+            <div class="md-padding" layout="column" flex="100">
+                <table dynamic-table columns="columnsClusters" execute="getClusters()">
+                    <tbody>
+                    <tr ng-repeat="item in items">
+                        <td>
+                            <a style="cursor:pointer;text-decoration: underline" ng-click="showDetail(item,0)" >{{item.name}}</a>
+                        </td>
+                        <td>{{item.resource}}</td>
+                        <td>{{item.cloud_provider}}</td>
+                        <td>{{item.template}}</td>
+                        <td>
+                            <a style="cursor:pointer;text-decoration: underline" ng-click="showDetail(item,1)" >{{item.nodesNum}}</a>
+                        </td>
+                        <td>默认组织</td>
+                        <td>默认工作空间</td>
+                        <td>自动化创建</td>
+                        <td>{{item.status}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table-pagination pagination="pagination"></table-pagination>
+            </div>
+        </div>-->
+        <side-form></side-form>
+        <info-form></info-form>
+    </div>
+</div>

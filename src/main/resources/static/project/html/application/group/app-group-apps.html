@@ -1,0 +1,21 @@
+<div ng-cloak ng-controller="AppGroupAppsController">
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>应用</div>
+            <div flex></div>
+            <md-button class="md-primary" ng-click="closeToggleForm()">
+                <div>关闭信息</div>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <table dynamic-table columns="columns">
+        <tbody>
+        <tr ng-repeat="item in items">
+            <td>{{item.clientId}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.enabled | enabled}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table-pagination pagination="pagination"></table-pagination>
+</div>

@@ -1,0 +1,58 @@
+<div layout-fill class="content-backdrop" ng-cloak>
+    <div layout="column" layout-fill>
+        <div layout="row" flex>
+            <md-content flex="100">
+                <md-button class="md-primary" ng-click="closeToggleForm2()">
+                    <div>关闭信息</div>
+                </md-button>
+                <form name="deployFrom" class="md-padding" cg-busy="{promise:loadingLayer,minDuration:500}">
+<!--                    <md-input-container class="md-icon-float md-block">
+                        &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;
+                        <label>仓库名称</label>
+                        <md-icon class="name" style="font-size: 32px">person</md-icon>
+                        <input ng-model="yamlDetail.name" type="text"
+                               placeholder="仓库名称"
+                               ng-disabled="true"
+                               required>
+                    </md-input-container>
+
+                    <md-input-container md-no-float class="md-block" layout-gt-xs="row">
+                        <label layout-gt-xs>用途描述</label>
+                        <md-icon layout-gt-xs md-svg-src="project/icons/password.svg"
+                                 class="s36"></md-icon>
+                        <input layout-gt-xs ng-model="yamlDetail.description" type="text" id="password"
+                               placeholder="用途描述"
+                               ng-disabled="true"
+                               required>
+                    </md-input-container>-->
+
+                    <!--<md-input-container md-no-float class="md-block" layout-gt-xs="row" style="margin-bottom: 0px">
+                        <virtual-select
+                                name="yamlClusters"
+                                value="clusterId"
+                                label="clusterName"
+                                items="cluseterItems"
+                                placeholder="选择集群"
+                                result="yamlDetail.clusterId"
+                                &lt;!&ndash;result="yamlDetailClusterId"&ndash;&gt;
+                                required="true"
+                        ></virtual-select>
+                    </md-input-container>-->
+                    <md-input-container flex="100" class="width: 80%">
+                        <label>选择集群</label>
+                        <md-select name="yamlClusters" ng-model="yamlDetailClusterId" required>
+                            <md-option ng-value="cluseterItem.clusterId" ng-repeat="cluseterItem in cluseterItems">{{cluseterItem.clusterName}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </form>
+
+                <div layout="row" layout-align="center" layout-margin>
+                    <md-button class="md-raised md-primary" ng-disabled="deployFrom.$invalid"
+                               ng-click="submit2(yamlDetailClusterId)">部署
+                    </md-button>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>
+

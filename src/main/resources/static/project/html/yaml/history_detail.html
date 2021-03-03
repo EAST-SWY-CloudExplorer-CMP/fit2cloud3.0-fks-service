@@ -1,0 +1,43 @@
+<div layout-fill class="content-backdrop" ng-cloak>
+    <div layout="column" layout-fill>
+        <div layout="row" flex>
+            <md-content flex="100">
+                <md-button class="md-primary" ng-click="closeToggleForm()">
+                    <div>关闭信息</div>
+                </md-button>
+                <form name="koFrom" class="md-padding" cg-busy="{promise:loadingLayer,minDuration:500}">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>集群名称</label>
+                        <input ng-model="detail.clusterName" type="text" ng-disabled="true" />
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>仓库名称</label>
+                        <input ng-model="detail.repoName" type="text" ng-disabled="true" />
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>开始时间</label>
+                        <input ng-model="detail.createTime|date:'yyyy-MM-dd hh:mm:ss'" type="text" ng-disabled="true"  >
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>结束时间</label>
+                        <input ng-model="detail.finishTime|date:'yyyy-MM-dd hh:mm:ss'" type="text" ng-disabled="true"  >
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>状态</label>
+                        <input ng-model="detail.status|deployStatus" type="text" ng-disabled="true" />
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label>详情</label>
+                        <textarea ng-model="detail.message" type="text" ng-disabled="true" />
+                    </md-input-container>
+                </form>
+            </md-content>
+        </div>
+    </div>
+</div>
+

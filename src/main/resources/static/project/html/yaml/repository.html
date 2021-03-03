@@ -1,0 +1,54 @@
+<div layout-fill class="content-backdrop" ng-controller="RepositoryController" ng-cloak>
+    <div cg-busy="{promise:loadingLayer,minDuration:500}" layout="column" layout-fill>
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <div>yaml仓库</div>
+            <div style="float: right">
+                <md-button class="md-primary" ng-click="showDetail(item,0)">
+                    <md-icon>person_add</md-icon>
+                    上传Yaml
+                </md-button>
+                <md-button class="md-primary" ng-click="deployYaml()">
+                    <md-icon>person_add</md-icon>
+                    安装
+                </md-button>
+            </div>
+            </div>
+        </md-toolbar>
+
+
+        <div layout="row" flex>
+            <div class="md-padding" layout="column" flex="100">
+                <filter-tools conditions="conditions" results="filters" search="'true'" execute="listRepos()">
+                    <select-columns columns="columns"></select-columns>
+                    <div class="filter-item">
+                        <md-button class="md-icon-button md-whiteframe-1dp" ng-click="list()">
+                            <md-tooltip md-delay="300">刷新</md-tooltip>
+                            <md-icon>refresh</md-icon>
+                        </md-button>
+                    </div>
+                </filter-tools>
+
+                <table dynamic-table columns="columnsRepos" execute="listRepos({sql: sql})"
+                       ng-class="{'tr-selected':selected === item.$$hashKey}">
+                <tbody>
+                <tr ng-repeat="item in items">
+                    <td>
+                        <md-checkbox md-no-ink aria-label="是否启用" ng-model="item.enable"
+                                     class="md-primary"></md-checkbox>
+                    </td>
+                    <td><a style="cursor:pointer;text-decoration: underline" ng-click="showDetail(item,1)">{{item.name}}</a></td>
+                    <td>{{item.version}}</td>
+                    <!--<td>{{item.description}}</td>-->
+                    <td>{{item.createTime | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                    <!--<td><a style="cursor:pointer;text-decoration: underline" ng-click="deployYaml(item)">安装</a></td>-->
+                </tr>
+                </tbody>
+                </table>
+                <table-pagination pagination="pagination"></table-pagination>
+            </div>
+        </div>
+        <side-form></side-form>
+        <info-form></info-form>
+    </div>
+</div>

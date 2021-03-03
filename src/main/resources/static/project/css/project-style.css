@@ -1,0 +1,454 @@
+/*!
+ * 项目CSS，有特殊需求就写在这里。
+**/
+
+.cloud-server-info md-tab-item {
+    line-height: 53px;
+}
+
+.cloud-server-info md-pagination-wrapper {
+    height: 53px;
+}
+
+.cloud-server-info md-tabs-canvas {
+    height: 53px;
+}
+
+.cloud-server-info md-tab-data {
+    height: 54px;
+    opacity: 1;
+    right: 0;
+    left: auto;
+    z-index: 20;
+}
+
+.cloud-server-info md-tab-data .md-button {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.cloud-server-info md-tabs-content-wrapper {
+    height: 100%;
+}
+
+.cloud-server-info md-tabs-content-wrapper md-tab-content {
+    height: 100%;
+}
+
+.cloud-server-info md-tabs-content-wrapper md-tab-content md-content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cloud-server-info md-tabs-content-wrapper md-tab-content md-content .cloud-server-info-md-content {
+    padding-bottom: 100px;
+}
+
+.cloud-server-info h6 {
+    font-weight: bolder;
+    font-size: 11px;
+    letter-spacing: .02em;
+    line-height: 12px;
+    margin: 10px 0 12px;
+}
+
+.cloud-server-info span {
+    word-break: break-all;
+    font-size: 12px;
+}
+
+.cloud-server-info .cloud-server-info-button {
+    margin: 0;
+}
+
+.cloud-server-info .key-duplicate {
+    color: #da4336;
+}
+
+.cloud-server-info .cloud-server-info-content {
+    padding: 24px;
+}
+
+.cloud-server-info .cloud-server-info-content p {
+    bottom: -5px;
+    margin: -8px 0 20px;
+    position: relative;
+    font-size: 12px;
+}
+
+.cloud-server-info .cloud-server-info-button-tag {
+    text-align: center;
+    width: 100%;
+    height: 26px;
+    margin: 0 0 15px;
+    border: 1.1px solid;
+    min-height: 0;
+    line-height: 0;
+    min-width: 0;
+    border-radius: 2px;
+}
+
+.cloud-server-info .cloud-server-info-button-tag md-icon {
+    margin-right: -5px;
+}
+
+.cloud-server-info .cloud-server-info-button-tag-disable {
+    box-shadow: none !important;
+    background: #fafafa !important;
+    border: 1.1px solid;
+    opacity: .6;
+    cursor: default;
+}
+
+.cloud-server-info md-icon {
+    font-size: 20px;
+}
+
+.md-dialog-content pre {
+    white-space: pre-wrap; /*css-3*/
+    white-space: -moz-pre-wrap; /*Mozilla,since1999*/
+    white-space: -pre-wrap; /*Opera4-6*/
+    white-space: -o-pre-wrap; /*Opera7*/
+    word-wrap: break-word; /*InternetExplorer5.5+*/
+}
+
+table md-switch {
+    margin: 0 0;
+}
+
+/*!
+ * 项目CSS，有特殊需求就写在这里。
+**/
+
+.form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.os-input-info {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.os-button-tag {
+    text-align: center;
+    width: 100%;
+    height: 26px;
+    margin: 0 0 15px 15px;
+    border: 1.1px solid;
+    min-height: 0;
+    line-height: 0;
+    min-width: 0;
+    border-radius: 2px;
+}
+
+.os-key-duplicate {
+    color: #da4336;
+    font-size: 12px;
+}
+
+.form-top {
+    margin-top: 5%;
+}
+
+.license-background {
+    background: #fff;
+    bottom: 0;
+    direction: ltr;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.license-background svg {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.license-panel md-content {
+    background: inherit;
+}
+
+.license-container {
+    margin: auto;
+    width: 640px;
+    height: 400px;
+    position: relative;
+}
+
+.license-header {
+    height: 100px;
+    background-image: url("/web-public/fit2cloud/img/fit2cloud/license_header.png");
+    text-align: center;
+    padding: 20px 0;
+}
+
+.license-content {
+    font-size: 16px;
+    padding: 50px;
+}
+
+.license-footer {
+    padding-top: 50px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.license-container table {
+    width: 100%;
+}
+
+.license-container table th {
+    text-align: left;
+    width: 45%;
+}
+
+.tree-table {
+    border-top: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    width: 100%;
+    outline: 0;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.tree-table thead > tr, .tree-table tbody > tr {
+    height: 44px;
+}
+
+.tree-table thead > tr > th {
+    background-color: #e8e8e8;
+    border-left: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;;
+    padding: 0 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tree-table tbody > tr > td {
+    border-left: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 0 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tree-table > tbody > tr > td:hover .hide-content * {
+    display: inline-block;
+}
+
+.hide-content * {
+    display: none;
+}
+
+.hide-content {
+    display: inline-block;
+}
+
+.hide-content md-icon {
+    cursor: pointer;
+}
+
+.minicolors-theme-default.minicolors {
+    width: 100% !important;
+    display: inline-block
+}
+
+.minicolors-position-left .minicolors-panel {
+    left: 0;
+    margin-top: 35px;
+}
+
+.module-header {
+    margin: 35px 10px 10px 8px !important;
+    height: 0;
+    min-height: 0;
+    max-height: 0;
+}
+
+.module-search {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    outline: none;
+    height: 36px;
+    width: 260px;
+    padding: 0 6px;
+    margin-right: 10px;
+}
+
+.module-search input {
+    width: 220px;
+    height: 100%;
+    border: none;
+    padding: 0;
+}
+
+.module-content {
+    margin-top: 20px
+}
+
+.module-content .category {
+    margin: 15px 0px 0px 15px
+}
+
+.module-content .module-card {
+    padding: 0 10px;
+    height: 160px;
+    background-color: white;
+}
+
+.module-content .module-card .header {
+    padding: 20px 12px 12px 5px;
+    line-height: 24px;
+}
+
+.module-content .module-card .header .title {
+    display: inline;
+    font-size: 17px;
+    vertical-align: middle
+}
+
+.module-content .module-card .content {
+    padding: 0 8px;
+    color: #757575;
+    font-size: 14px;
+}
+
+.module-content .module-card .footer {
+    padding: 0 10px;
+}
+
+.sys_metric canvas {
+    cursor: pointer !important;
+}
+
+.selectdemoSelectHeader {
+    /* Please note: All these selectors are only applied to children of elements with the 'selectdemoSelectHeader' class */
+}
+
+.selectdemoSelectHeader .demo-header-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.selectdemoSelectHeader .demo-select-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+.selectdemoSelectHeader md-content._md {
+    max-height: 240px;
+}
+
+.select-optgroup {
+    overflow-y: auto;
+    height: 200px;
+}
+
+.module-input md-input-container {
+    width: 200px;
+}
+
+.template-switch {
+    margin: 25px 0 0 0;
+}
+
+
+.resource-tree {
+    height: -moz-calc(100vh - 54px);
+    height: -webkit-calc(100vh - 54px);
+    height: calc(100vh - 54px);
+}
+
+.catalog-item {
+    width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.catalog-item .catalog-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.catalog-item .catalog-card {
+    margin: 0;
+    background-color: white;
+}
+
+.catalog-item .catalog-text {
+    padding-left: 20px;
+}
+
+.catalog-item .catalog-text .catalog-text-item {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.catalog-item .catalog-button {
+    margin: 0;
+    padding: 0;
+}
+
+.catalog-product-background {
+    background: #fff;
+    bottom: 0;
+    direction: ltr;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.catalog-product div {
+    z-index: 1;
+}
+
+.catalog-product md-tabs-content-wrapper {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: calc(100% - 102px);
+}
+
+.catalog-product-background svg {
+    height: 100vh;
+    position: relative;
+    width: 100%;
+}
+
+.product-input md-input-container {
+    width: 200px;
+}
+
+.hide-validation-error .md-errors-spacer {
+    display: none;
+}

@@ -1,0 +1,24 @@
+<div layout-fill class="content-backdrop" ng-controller="HistoryController" ng-cloak>
+    <div cg-busy="{promise:loadingLayer,minDuration:500}" layout="column" layout-fill>
+        <div layout="row" flex>
+            <div class="md-padding" layout="column" flex="100">
+                <table dynamic-table columns="columnsHistory" execute="listRepos()">
+                <tbody>
+                <tr ng-repeat="item in items">
+                    <!--<td><a style="cursor:pointer;text-decoration: underline" ng-click="showDetail(item,1)">{{item.name}}</a></td>-->
+                    <td>{{item.clusterName}}</td>
+                    <td>{{item.repoName}}</td>
+                    <td>{{item.createTime | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                    <td>{{item.finishTime | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                    <td>{{item.status | deployStatus}}</td>
+                    <td><a style="cursor:pointer;text-decoration: underline" ng-click="showDetail(item)">查看</a></td>
+                </tr>
+                </tbody>
+                </table>
+                <table-pagination pagination="pagination"></table-pagination>
+            </div>
+        </div>
+        <side-form></side-form>
+        <info-form></info-form>
+    </div>
+</div>

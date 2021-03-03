@@ -1,0 +1,205 @@
+<div layout="column" layout-fill cg-busy="{promise:productEditLoadingLayer,minDuration:500}">
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>申请产品</div>
+        </div>
+    </md-toolbar>
+    <md-content flex="auto">
+        <div wizard="wizard" ng-if="show">
+            <wizard-step id="1">
+                <form name="productForm" class="md-padding">
+                    <input type="password" autocomplete="new-password" hidden>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>数量</label>
+                        <input type="number" min="1" step="1" required name="num" ng-model="request.count">
+                        <div ng-messages="productForm.num.$error">
+                            <div ng-message="required">必填.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm
+                                        ng-repeat="item in currentProduct.launchConfiguration"
+                                        ng-if="ifShow(item)">
+                        <label>
+                            {{item.label}}
+                            <span ng-if="item.unit">({{item.unit}})</span>
+                        </label>
+                        <input autocomplete="new-password"
+                               ng-if="item.inputType !='textarea' && item.inputType != 'password' && item.inputType != 'combobox' && item.inputType != 'boolean' && item.inputType != 'multiSelect'"
+                               type="{{item.inputType}}" ng-required="item.required" ng-model="item.value"
+                               ng-maxlength="255"/>
+                        <textarea ng-if="item.inputType == 'textarea'" ng-required="item.required" ng-model="item.value"
+                                  rows="5"></textarea>
+                        <i tabindex="-1" id="eye1" ng-if="item.inputType === 'password'" class="fa fa-eye f2c-eye"
+                           aria-hidden="true"
+                           ng-click="view()"></i>
+                        <input autocomplete="new-password" id="password1" ng-if="item.inputType === 'password'"
+                               type="password" ng-required="item.required" ng-model="item.value"
+                               ng-maxlength="50"/>
+                        <md-select ng-if="item.inputType == 'combobox'" ng-model="item.value"
+                                   ng-change="selectOnChange(item);"
+                                   ng-required="item.required">
+                            <md-option ng-value="x[item.valueField]" ng-repeat="x in item.optionList| orderBy:'cpu'">
+                                {{x[item.textField]}}
+                            </md-option>
+                        </md-select>
+                        <md-select multiple ng-if="item.inputType == 'multiSelect'" ng-model="item.value"
+                                   ng-change="selectOnChange(item)"
+                                   ng-required="item.required">
+                            <md-option ng-value="x[item.valueField]" ng-repeat="x in item.optionList">
+                                {{x[item.textField]}}
+                            </md-option>
+                        </md-select>
+                        <md-switch ng-if="item.inputType == 'boolean'" class="md-primary template-switch"
+                                   aria-label="enable"
+                                   ng-change="selectBooleanOnChange(item);"
+                                   ng-model="item.value">
+                        </md-switch>
+                        <div ng-if="item.inputType == 'combobox' || item.inputType == 'boolean' || item.inputType == 'multiSelect'">
+                            <div class="md-errors-spacer"></div>
+                            <div class="hint product-hint" ng-bind-html="item.description | toTrusted"
+                                 ng-if="item.description"></div>
+                        </div>
+                        <div ng-if="item.inputType != 'combobox' && item.inputType != 'boolean' && item.inputType != 'multiSelect'">
+                            <div class="hint" ng-bind-html="item.description | toTrusted"
+                                 ng-if="item.description"></div>
+                        </div>
+                    </md-input-container>
+                </form>
+            </wizard-step>
+            <wizard-step id="2">
+                <form name="productForm2" class="md-padding">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>租期</label>
+                        <md-select name="expiredTime" ng-model="customData.expiredTimeType"
+                                   ng-change="changeExpiredTimeType(customData.expiredTimeType)" required>
+                            <md-option ng-repeat="expiredTime in expiredTimeTypes" ng-value="expiredTime.key">
+                                {{expiredTime.value}}
+                            </md-option>
+                        </md-select>
+                        <div class="md-errors-spacer"></div>
+                    </md-input-container>
+                    <md-input-container ng-if="customData.expiredTimeType === 'custom'" class="md-block" flex-gt-sm>
+                        <md-calendar md-date-filter="calendarDateFilter" ng-model="customData.expiredTime"></md-calendar>
+                        <div class="md-errors-spacer"></div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm ng-if="middlewareList.length > 0">
+                        <label>中间件</label>
+                        <md-select multiple ng-model="customData.middlewareIds" ng-change="changeMiddleware()">
+                            <md-option ng-value="t.id" ng-disabled="t.disabled" ng-repeat="t in middlewareList">
+                                {{t.name}}
+                            </md-option>
+                        </md-select>
+                        <div class="md-errors-spacer"></div>
+                    </md-input-container>
+                    <div ng-if="customData.selectMiddlewareList.length > 0">
+                        <div ng-repeat="middleware in customData.selectMiddlewareList">
+                            <table class="hide-validation-error tree-table">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">{{middleware.name}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-if="middleware.parameters.length > 0">
+                                    <td width="50%">参数名</td>
+                                    <td>参数值</td>
+                                </tr>
+                                <tr ng-repeat="param in middleware.parameters">
+                                    <td>{{param.name}}</td>
+                                    <td ng-init="param.value = param.value || param.defaultValue">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <input type="text" ng-model="param.value">
+                                        </md-input-container>
+                                    </td>
+                                </tr>
+                                <tr ng-if="middleware.parameters.length == 0">
+                                    <td colspan="2">无参数设置</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="md-padding"></div>
+                        </div>
+                    </div>
+                </form>
+            </wizard-step>
+            <wizard-step id="3">
+                <form name="productForm3" class="md-padding">
+                    <div ng-controller="CloudServerTagController" class="cloud-server-info-content"
+                         cg-busy="{promise:loading,minDuration:500}">
+                        <div class="cloud-server-info-md-content">
+                            <div ng-show="addItem.length > 0" layout-align="start">
+                                <div layout="row">
+                                    <span flex="50">键</span>
+                                    <span flex="50">值</span>
+                                </div>
+                                <form name="productForm3">
+                                    <div ng-repeat="item in addItem" layout="row" ng-if="tags">
+                                        <md-input-container flex="45">
+                                            <md-select name="key" ng-model="item.tagKey" required
+                                                       ng-change="changeTag(item)"
+                                                       ng-disabled="checkPermission('CLOUD_SERVER:READ+TAG_SAVE') || checkRequired(item) === true">
+                                                <md-option ng-value="tag.tagKey" ng-repeat="tag in tags">
+                                                    {{tag.tagAlias}}
+                                                </md-option>
+                                            </md-select>
+                                            <div ng-show="item.required === true && !item.tagValueId"
+                                                 class="key-duplicate">
+                                                <span>必填标签</span>
+                                            </div>
+                                            <div ng-show="item.duplicate" class="key-duplicate">
+                                                <span>键值重复</span>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container flex="45">
+                                            <md-select name="value" ng-model="item.tagValueId" required
+                                                       ng-change="changeTagValue()"
+                                                       ng-disabled="checkPermission('CLOUD_SERVER:READ+TAG_SAVE')">
+                                                <md-option ng-value="tagValue.id" ng-repeat="tagValue in item.values">
+                                                    {{tagValue.tagValueAlias}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                        <md-icon ng-click="deleteTag($index)" class="pointer" name="deleteTagNode"
+                                                 ng-show="item.duplicate || (item.required !== true && checkRequired(item) !== true)"
+                                                 has-permission="CLOUD_SERVER:READ+TAG_SAVE">clear
+                                        </md-icon>
+                                    </div>
+                                </form>
+                            </div>
+                            <div layout="row" flex="90" has-permission="CLOUD_SERVER:READ+TAG_SAVE">
+                                <md-button
+                                        ng-class="{'cloud-server-info-button-tag-disable': productForm3.$invalid && editing === true}"
+                                        ng-disabled="productForm3.$invalid && editing === true"
+                                        ng-click="addTag()"
+                                        class="md-primary cloud-server-info-button-tag">
+                                    <md-icon>add</md-icon>
+                                    <span>添加标签</span>
+                                </md-button>
+                            </div>
+                        </div>
+                        <div flex layout="row" layout-fill layout-align="start center">
+                            <div flex="90">
+                                <md-input-container class="md-block">
+                                    <label>虚拟机备注</label>
+                                    <textarea maxlength="64" name="remark" md-no-autogrow ng-model="customData.remark" rows="1"></textarea>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div flex layout="row" layout-fill layout-align="start center">
+                            <div flex="90">
+                                <md-input-container class="md-block">
+                                    <label>申请原因</label>
+                                    <textarea maxlength="255" name="description" md-no-autogrow
+                                              ng-model="request.description" rows="3"
+                                              placeholder="填写申请原因"></textarea>
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </wizard-step>
+        </div>
+    </md-content>
+</div>

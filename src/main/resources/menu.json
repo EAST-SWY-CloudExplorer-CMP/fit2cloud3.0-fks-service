@@ -1,0 +1,194 @@
+{
+  "version": "2.0",
+  "menu": [
+    {
+      "order": 0,
+      "id": "0",
+      "title": "概览",
+      "icon": "dashboard",
+      "name": "dashboard",
+      "url": "/dashboard",
+      "templateUrl": "project/html/ko/dashboard.html",
+      "requiredPermissions": [
+        {
+          "role": "ADMIN",
+          "logical": "OR",
+          "permissions": [
+            "DASHBOARD:READ"
+          ]
+        },
+        {
+          "role": "ORGADMIN",
+          "logical": "OR",
+          "permissions": [
+            "DASHBOARD:READ"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 1,
+      "id": "1",
+      "title": "集群",
+      "icon": "cloud_queue",
+      "name": "clusters",
+      "url": "/clusters",
+      "templateUrl": "project/html/ko/clusters.html",
+      "requiredPermissions": [
+        {
+          "role": "ADMIN",
+          "logical": "OR",
+          "permissions": [
+            "DASHBOARD:READ"
+          ]
+        },
+        {
+          "role": "ORGADMIN",
+          "logical": "OR",
+          "permissions": [
+            "DASHBOARD:READ"
+          ]
+        },
+        {
+          "role": "USER",
+          "logical": "OR",
+          "permissions": [
+            "DASHBOARD:READ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "order": 2,
+      "title": "系统设置",
+      "icon": "build",
+      "children": [
+        {
+          "order": 1,
+          "title": "流程设置",
+          "name": "flow_manager",
+          "url": "/flow",
+          "templateUrl": "web-public/fit2cloud/html/process/process-management.html",
+          "requiredPermissions": [
+            {
+              "role": "ADMIN",
+              "logical": "OR",
+              "permissions": [
+                "FLOW:MANAGER"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "系统对接",
+          "name": "settings",
+          "url": "/settings",
+          "templateUrl": "project/html/ko/settings.html",
+          "requiredPermissions": [
+            {
+              "role": "ADMIN",
+              "logical": "OR",
+              "permissions": [
+                "DASHBOARD:READ"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "规格设置",
+          "name": "spec",
+          "url": "/spec",
+          "templateUrl": "project/html/specs/specs-list.html",
+          "requiredPermissions": [
+            {
+              "role": "ADMIN",
+              "logical": "OR",
+              "permissions": [
+                "DASHBOARD:READ"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    /*{
+      "order": 3,
+      "id": "3",
+      "title": "申请",
+      "icon": "cloud_queue",
+      "name": "apply",
+      "url": "/apply",
+      "templateUrl": "project/html/cluster-product/cluster-product.html",
+      "requiredPermissions": [
+        {
+          "role": "USER",
+          "logical": "OR",
+          "permissions": [
+            "DASHBOARD:READ"
+          ]
+        }
+      ]
+    },*/
+    /*{
+      "order": 4,
+      "id": "4",
+      "title": "订单",
+      "icon": "cloud_queue",
+      "name": "orrderr",
+      "url": "/orrderr",
+      "templateUrl": "project/html/order/order-list.html",
+      "requiredPermissions": [
+        {
+          "role": "USER",
+          "logical": "OR",
+          "permissions": [
+            "DASHBOARD:READ"
+          ]
+        }
+      ]
+    },*/
+    {
+      "id": "5",
+      "order": 5,
+      "title": "yaml管理",
+      "icon": "apps",
+      "children": [
+        {
+          "order": 1,
+          "title": "yaml仓库",
+          "name": "yamlrepo",
+          "url": "/yamlrepo",
+          "templateUrl": "project/html/yaml/repository.html",
+          "requiredPermissions": [
+            {
+              "role": "ADMIN",
+              "logical": "OR",
+              "permissions": [
+                "DASHBOARD:READ"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "部署结果",
+          "name": "yamlhis",
+          "url": "/yamlhis",
+          "templateUrl": "project/html/yaml/history.html",
+          "requiredPermissions": [
+            {
+              "role": "ADMIN",
+              "logical": "OR",
+              "permissions": [
+                "DASHBOARD:READ"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

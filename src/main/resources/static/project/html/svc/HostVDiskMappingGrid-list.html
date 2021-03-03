@@ -1,0 +1,28 @@
+<div layout-fill class="content-backdrop" ng-controller="HostVDiskMappingGridController" ng-cloak>
+    <div cg-busy="{promise:loadingLayer,minDuration:500}" layout="column" layout-fill>
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <div>主机-主机映射</div>
+            </div>
+        </md-toolbar>
+
+        <div layout="row" flex>
+            <div class="md-padding" layout="column" flex="100">
+                <table dynamic-table columns="columns" execute="list()">
+                <tbody>
+                <tr ng-repeat="item in items">
+                    <td>{{item.name}}</td>
+                    <td>{{item.scsiId}}</td>
+                    <td>{{item.vdiskName}}</td>
+                    <td>{{item.vdiskUid}}</td>
+                    <td>{{item.ioGroupName}}</td>
+                </tr>
+                </tbody>
+                </table>
+                <table-pagination pagination="pagination"></table-pagination>
+            </div>
+        </div>
+        <side-form></side-form>
+        <info-form></info-form>
+    </div>
+</div>

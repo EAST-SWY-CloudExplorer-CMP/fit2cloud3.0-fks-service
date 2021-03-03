@@ -1,0 +1,72 @@
+<div layout-fill ng-controller="SpecsController" ng-cloak>
+    <div layout-fill class="cloud-server-info">
+
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <div>添加规格</div>
+            </div>
+        </md-toolbar>
+
+        <form name="CreateSpecsForm" class="md-padding">
+            <!--规格名称-->
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>规格名称</label>
+                <input minlength="1" md-maxlength="30" required name="name" ng-model="specsItem.name">
+                <div ng-messages="CreateSpecsForm.name.$error">
+                    <div ng-message="required">必填.</div>
+                    <div ng-message="md-maxlength">不要超过30个字符</div>
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        请在2-30字符以内
+                    </div>
+                </div>
+            </md-input-container>
+
+            <!--节点数量-->
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>节点数量</label>
+                <input minlength="1" md-maxlength="20" required name="nodeNum"
+                       ng-pattern="/^[1-9]\d*$/" ng-model="specsItem.nodeNum">
+                <div ng-messages="CreateSpecsForm.nodeNum.$error">
+                    <div ng-message="required">必填.</div>
+                    <div ng-message="pattern">请输入数字</div>
+                    <div ng-message="md-maxlength">不要超过30个字符</div>
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        请在2-30字符以内
+                    </div>
+                </div>
+            </md-input-container>
+
+            <!--可用区-->
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>可用区</label>
+                <input minlength="1" md-maxlength="30" required name="zone" ng-model="specsItem.zone">
+                <div ng-messages="CreateSpecsForm.zone.$error">
+                    <div ng-message="required">必填.</div>
+                    <div ng-message="md-maxlength">不要超过30个字符</div>
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        请在2-30字符以内
+                    </div>
+                </div>
+            </md-input-container>
+
+            <!--选择部署模型-->
+            <div layout="row" layout-align="start" flex>
+                <md-input-container flex="100">
+                    <label>部署模型</label>
+                    <md-select name="deployType" ng-model="specsItem.deployType" required>
+                        <md-option ng-value="type.id" ng-repeat="type in deployTypes">{{type.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="start center" layout-margin>
+                <md-button class="md-raised" ng-click="closeToggleForm()">
+                    取消
+                </md-button>
+                <md-button class="md-raised md-primary" ng-disabled="ClusterAuthForm.$invalid" ng-click="saveSpecs(specsItem)">
+                    保存
+                </md-button>
+            </div>
+        </form>
+    </div>
+</div>

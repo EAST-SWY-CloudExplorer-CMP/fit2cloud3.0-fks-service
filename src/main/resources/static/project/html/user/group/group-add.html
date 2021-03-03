@@ -1,0 +1,65 @@
+<div ng-cloak>
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>新建LDAP用户组</div>
+        </div>
+    </md-toolbar>
+    <form name="addGroupForm" class="md-padding">
+        <md-input-container class="md-block">
+            <label>用户组名称</label>
+            <input autocomplete="new-password" required name="ou"  ng-model="item.ou" minlength="1" maxlength="50" md-maxlength="50" ng-pattern="/^[a-zA-Z]*$/"/>
+            <div ng-messages="addGroupForm.ou.$error">
+                <div ng-message="required">必填.</div>
+                <div ng-message="md-maxlength" >不要超过50个字符</div>
+                <div ng-message-exp="['required', 'minlength' , 'maxlength' , 'pattern']">
+                    用户组名称为1-50位的英文字符
+                </div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>描述</label>
+            <textarea autocomplete="new-password"  required name="description" minlength="1" maxlength="256" md-maxlength="256"  ng-model="item.description" />
+            <div ng-messages="addGroupForm.description.$error">
+                <div ng-message="required">必填.</div>
+                <div ng-message="md-maxlength">不要超过256个字符</div>
+                <div ng-message-exp="['required', 'minlength' , 'pattern' ,  'maxlength']">
+                    描述不可超过256个字符。
+                </div>
+            </div>
+        </md-input-container>
+
+        <div style="margin-bottom: 30px">
+            <virtual-select-multiple
+                    name="organizationIds"
+                    value="id"
+                    label="name"
+                    items="orgs"
+                    placeholder="添加组织"
+                    results="item.organizationIds"
+                    required="true"
+            ></virtual-select-multiple>
+        </div>
+
+        <virtual-select-multiple
+                    name="members"
+                    value="dn"
+                    label="cn"
+                    items="ldapUsers"
+                    placeholder="添加用户"
+                    results="item.members"
+                    required="true"
+         ></virtual-select-multiple>
+
+
+    </form>
+    <div layout="row" layout-align="start center" layout-margin>
+        <md-button class="md-raised" ng-click="closeToggleForm()">
+            取消
+        </md-button>
+        <md-button class="md-raised md-primary" ng-disabled="addGroupForm.$invalid"
+                   ng-click="addLdapGroup(item)" >
+            保存
+        </md-button>
+    </div>
+</div>

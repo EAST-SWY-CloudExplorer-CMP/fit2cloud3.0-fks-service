@@ -1,0 +1,79 @@
+<div layout-fill ng-controller="ClustersController" ng-cloak>
+    <div layout-fill class="cloud-server-info">
+
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <div>集群权限设置</div>
+            </div>
+        </md-toolbar>
+
+        <form name="ClusterAuthForm" class="md-padding">
+            <!--选择授权到工作空间或角色-->
+            <div layout="row" layout-align="start" flex>
+                <md-input-container flex="100">
+                    <label>授权到</label>
+                    <md-select name="authType" ng-model="authItem.authType" required>
+                        <md-option ng-value="auth.authType" ng-repeat="auth in authes">{{auth.name}}</md-option>
+                    </md-select>
+                    <!--<div ng-messages="workspaceForm.roleId.$error">
+                        <div ng-message="required">必填.</div>
+                    </div>-->
+                </md-input-container>
+            </div>
+
+            <!--选择组织-->
+            <div layout="row" layout-align="start" flex>
+                <md-input-container flex="100">
+                    <label>组织</label>
+                    <md-select name="orgId" ng-model="authItem.organizationId" required ng-change="changeWorkspaces(authItem.organizationId)">
+                        <md-option ng-value="org.id" ng-repeat="org in orgs">{{org.name}}</md-option>
+                    </md-select>
+                    <!--<div ng-messages="workspaceForm.roleId.$error">
+                        <div ng-message="required">必填.</div>
+                    </div>-->
+                </md-input-container>
+            </div>
+
+            <!--选择工作空间-->
+            <div layout="row" layout-align="start" flex>
+                <md-input-container flex="100">
+                    <label>工作空间</label>
+                    <md-select name="workspaceId" ng-model="authItem.workspaceId" required>
+                        <md-option ng-value="workspace.id" ng-repeat="workspace in workspaces">{{workspace.name}}</md-option>
+                    </md-select>
+                    <!--<div ng-messages="workspaceForm.roleId.$error">
+                        <div ng-message="required">必填.</div>
+                    </div>-->
+                </md-input-container>
+            </div>
+            <!--<md-input-container class="md-block" layout-gt-xs="row">
+                <label>工作空间</label>
+                <md-select name="adminRoleId" ng-model="roleInfo.roleId" required
+                           ng-change="changeRole(roleInfo,roleInfo.roleId)">
+                    <md-option ng-value="role.id" ng-repeat="role in roles"
+                               ng-if="filterRole(role,roleInfo)">
+                        {{role.name}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="editUserForm.adminRoleId.$error">
+                    <div ng-message="required">必填.</div>
+                </div>
+                <md-icon style="cursor:pointer;"
+                         ng-if="item.roleInfoList.length>1"
+                         ng-click="subtractLine(roleInfo)">clear
+                </md-icon>
+                <md-icon ng-if="item.roleInfoList.length <= 1">
+                </md-icon>
+            </md-input-container>-->
+
+            <div layout="row" layout-align="start center" layout-margin>
+                <md-button class="md-raised" ng-click="closeToggleForm()">
+                    取消
+                </md-button>
+                <md-button class="md-raised md-primary" ng-disabled="ClusterAuthForm.$invalid" ng-click="saveAuth(authItem)">
+                    保存
+                </md-button>
+            </div>
+        </form>
+    </div>
+</div>

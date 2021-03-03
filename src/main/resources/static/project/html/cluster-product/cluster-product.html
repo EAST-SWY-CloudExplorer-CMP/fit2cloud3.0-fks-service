@@ -1,0 +1,124 @@
+<div layout-fill class="content-backdrop" style="overflow-y: hidden;" ng-cloak ng-controller="CatalogProductController"
+     cg-busy="{promise:loadingLayer,minDuration:500}">
+    <div layout-fill ng-include="background" class="catalog-product-background" aria-hidden="true"></div>
+    <div layout-fill class="catalog-product">
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <label>申请</label>
+            </div>
+        </md-toolbar>
+        <md-tabs layout-fill md-dynamic-height md-border-bottom>
+            <md-tab label="浏览">
+                <div>
+                    <div class="md-padding">
+                        <div layout="row" layout-align="space-between center" layout-wrap layout-padding>
+                            <div layout="row" layout-align="start center" style="padding: 0">
+                                <md-button class="md-raised" ng-class="{'md-primary': condition.tagKey === 'ALL'}"
+                                           ng-click="changeProductTag('ALL')">全部
+                                </md-button>
+                                <div ng-repeat="tag in productTags">
+                                    <md-button class="md-raised"
+                                               ng-class="{'md-primary': condition.tagKey === tag.tagKey}"
+                                               ng-click="changeProductTag(tag.tagKey)">{{tag.tagName}}
+                                    </md-button>
+                                </div>
+                            </div>
+                            <div layout="row" layout-align="start center">
+                                <div class="hide-validation-error product-input">
+                                    <md-input-container style="margin: 0">
+                                        <md-icon>search</md-icon>
+                                        <input ng-model="condition.param" type="text" placeholder="请输入产品名称或产品描述">
+                                    </md-input-container>
+                                </div>
+                                <!--<div>
+                                    <md-input-container style="min-width: 138px; margin: 0;" md-no-float>
+                                        <md-select ng-model="condition.order" required>
+                                            <md-option ng-value="order.key" ng-repeat="order in orders">
+                                                {{order.value}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="start center" layout-wrap layout-padding>
+                            <catalog-item flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="100" flex-xs="100"
+                                          ng-repeat="product in products | propsFilter:{name:condition.param, description:condition.param} | orderBy:condition.order"
+                                          ng-if="product.show !== false"
+                                          detail="product"
+                                          submit="apply(product)">
+                            </catalog-item>
+                        </div>
+                    </div>
+                </div>
+            </md-tab>
+            <md-tab label="清单" ng-click="getMyCart()">
+                <div class="md-padding" style="background-color: #fff;" ng-if="orderItemList && orderItemList.length > 0">
+                    <table class="table order-table">
+                        <tbody ng-repeat="orderItem in orderItemList">
+                        <tr class="order-head">
+                            <td style="width: 50px; text-align: center; padding: 0">
+                                <md-button ng-if="orderItem.show" class="md-icon-button" ng-click="showItem(orderItem)">
+                                    <md-icon>expand_more</md-icon>
+                                </md-button>
+                                <md-button ng-if="!orderItem.show" class="md-icon-button"
+                                           ng-click="showItem(orderItem)">
+                                    <md-icon>chevron_right</md-icon>
+                                </md-button>
+                            </td>
+                            <td>
+                                <img width="30px" height="30px" ng-src="{{orderItem.productInfo.iconUrl}}">
+                                {{orderItem.productInfo.name}}
+                            </td>
+                            <td>{{orderItem.productInfo.description}}</td>
+                            <td>数量：{{orderItem.count}}</td>
+                            <td><a class="md-primary text-click" ng-click="clearCart(orderItem)">删除</a>
+                            </td>
+                        </tr>
+                        <tr ng-show="orderItem.show">
+                            <td colspan="6">
+                                <div class="md-padding">
+                                    <md-tabs layout-fill md-dynamic-height md-border-bottom>
+                                        <md-tab label="配置信息">
+                                            <md-content class="md-padding">
+                                                <form-runtime-read-only
+                                                        context="orderItem"></form-runtime-read-only>
+                                            </md-content>
+                                        </md-tab>
+                                        <md-tab label="中间件">
+                                            <md-content class="md-padding">
+                                                <middleware-info
+                                                        middleware-list="orderItem.customData.selectMiddlewareList">
+                                                </middleware-info>
+                                            </md-content>
+                                        </md-tab>
+                                        <md-tab label="标签">
+                                            <md-content class="md-padding">
+                                                <order-tag-info order-tags="orderItem.tags"></order-tag-info>
+                                            </md-content>
+                                        </md-tab>
+                                    </md-tabs>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div layout="row" layout-align="center center" layout-margin>
+                        <md-button class="md-raised" ng-click="clearCart()">
+                            清空列表
+                        </md-button>
+                        <md-button class="md-raised md-primary" ng-click="submitCart()">
+                            确认提交
+                        </md-button>
+                    </div>
+                </div>
+                <div ng-if="!orderItemList || orderItemList.length == 0">
+                    <div class="md-padding" layout="row" layout-align="center center" layout-margin>
+                        暂无数据
+                    </div>
+                </div>
+            </md-tab>
+        </md-tabs>
+        <side-form></side-form>
+    </div>
+</div>

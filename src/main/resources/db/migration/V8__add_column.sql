@@ -1,0 +1,1 @@
+alter table yaml_histrory add COLUMN `finish_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP comment '完成时间' after `create_time`;

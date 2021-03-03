@@ -1,0 +1,38 @@
+<div layout-fill layout="column" cg-busy="{promise:roleDetailLoadingLayer,minDuration:500}">
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>添加参数</div>
+        </div>
+    </md-toolbar>
+    <md-content flex="auto">
+           <form name="ldapSettingsForm" class="md-padding">
+               <md-input-container class="md-block" flex-gt-sm>
+                   <label>参数名称</label>
+                   <input required name="paramKey" ng-model="item.paramKey" ng-disabled="item.type=='UPDATE'" >
+                   <div ng-messages="ldapSettingsForm.paramKey.$error">
+                       <div ng-message="required">必填.</div>
+                   </div>
+               </md-input-container>
+               <md-input-container class="md-block" flex-gt-sm>
+                   <label>参数值</label>
+                   <input required name="paramValue" ng-model="item.paramValue">
+                   <div ng-messages="ldapSettingsForm.paramValue.$error">
+                       <div ng-message="required">必填.</div>
+                   </div>
+               </md-input-container>
+            </form>
+            <div layout="row" layout-align="start center" layout-margin>
+                <md-button class="md-raised" ng-click="closeToggleForm()">
+                    取消
+                </md-button>
+                <md-button class="md-raised md-primary" ng-disabled="ldapSettingsForm.$invalid"
+                           ng-click="save(item)" ng-if="item.type=='CREATE'">
+                    保存
+                </md-button>
+                <md-button class="md-raised md-primary" ng-disabled="ldapSettingsForm.$invalid"
+                           ng-click="update(item)" ng-if="item.type=='UPDATE'">
+                    保存
+                </md-button>
+            </div>
+    </md-content>
+</div>

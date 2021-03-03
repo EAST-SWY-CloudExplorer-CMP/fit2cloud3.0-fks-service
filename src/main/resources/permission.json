@@ -1,0 +1,350 @@
+{
+  "version": "2.0",
+  "permissions": [
+    {
+      "id": "ORDER:CREATE_PROJECT",
+      "name": "permission_apply_create_project",
+      "resourceId": "ORDER",
+      "parentRoles": [
+        "USER"
+      ]
+    },
+    {
+      "id": "ORDER:DELETE_PROJECT",
+      "name": "i18n_permission_apply_delete_project",
+      "resourceId": "ORDER",
+      "parentRoles": [
+        "USER"
+      ]
+    },
+    {
+      "id": "ORDER:BIND_ROLE",
+      "name": "i18n_permission_apply_project_permission",
+      "resourceId": "ORDER",
+      "parentRoles": [
+        "USER"
+      ]
+    },
+    {
+      "id": "ORDER:SET_QUOTA",
+      "name": "i18n_permission_apply_project_quota",
+      "resourceId": "ORDER",
+      "parentRoles": [
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "ORDER:READ",
+      "name": "i18n_permission_order_read",
+      "resourceId": "ORDER",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "ORDER:RETRY",
+      "name": "i18n_permission_order_read_retry",
+      "resourceId": "ORDER",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "APPLICATION:READ",
+      "name": "i18n_permission_application_read",
+      "resourceId": "APPLICATION",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "ROUTE:READ",
+      "name": "i18n_permission_route_read",
+      "resourceId": "ROUTE",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "SERVICE:READ",
+      "name": "i18n_permission_service_read",
+      "resourceId": "SERVICE",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "POD:READ",
+      "name": "i18n_permission_pod_read",
+      "resourceId": "POD",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "CONTAINER:READ",
+      "name": "i18n_permission_container_read",
+      "resourceId": "CONTAINER",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "PROJECT:READ",
+      "name": "i18n_permission_project_read",
+      "resourceId": "PROJECT",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "PROJECT:READ+AUTH",
+      "name": "i18n_permission_project_read_auth",
+      "resourceId": "PROJECT",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "ROLE:READ",
+      "name": "i18n_permission_role_read",
+      "resourceId": "ROLE",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "USER:READ",
+      "name": "i18n_permission_user_read",
+      "resourceId": "USER",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "CLUSTER:READ",
+      "name": "i18n_permission_cluster_read",
+      "resourceId": "CLUSTER",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "NODE:READ",
+      "name": "i18n_permission_node_read",
+      "resourceId": "NODE",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "PV:READ",
+      "name": "i18n_permission_pv_read",
+      "resourceId": "PV",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "PVC:READ",
+      "name": "i18n_permission_pvc_read",
+      "resourceId": "PVC",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "QUOTA:READ",
+      "name": "i18n_permission_quota_read",
+      "resourceId": "QUOTA",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "LIMITAPPLICATION_READ:READ",
+      "name": "i18n_permission_limit_read",
+      "resourceId": "LIMITAPPLICATION_READ",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "PERMISSION:READ",
+      "name": "i18n_permission_permission_read",
+      "resourceId": "PERMISSION",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "FLOW:MANAGER",
+      "name": "i18n_permission_flow_manager",
+      "resourceId": "FLOW",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "DASHBOARD:READ",
+      "name": "i18n_permission_dashboard_read",
+      "resourceId": "DASHBOARD",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "GROUP:READ",
+      "name": "i18n_permission_user_group_read",
+      "resourceId": "GROUP",
+      "parentRoles": [
+        "ADMIN",
+        "ORGADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": "PRICE_POLICY:READ",
+      "name": "i18n_permission_price_policy_read",
+      "resourceId": "PRICE_POLICY",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "PRICE_POLICY:READ+CREATE",
+      "name": "i18n_permission_price_policy_read_create",
+      "resourceId": "PRICE_POLICY",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "PRICE_POLICY:READ+EDIT",
+      "name": "i18n_permission_price_policy_read_edit",
+      "resourceId": "PRICE_POLICY",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "PRICE_POLICY:READ+DELETE",
+      "name": "i18n_permission_price_policy_read_delete",
+      "resourceId": "PRICE_POLICY",
+      "parentRoles": [
+        "ADMIN"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "APPLICATION",
+      "name": "i18n_permission_resource_application"
+    },
+    {
+      "id": "ROUTE",
+      "name": "i18n_permission_resource_route"
+    },
+    {
+      "id": "SERVICE",
+      "name": "i18n_permission_resource_service"
+    },
+    {
+      "id": "POD",
+      "name": "Pod"
+    },
+    {
+      "id": "CONTAINER",
+      "name": "i18n_permission_resource_container"
+    },
+    {
+      "id": "PROJECT",
+      "name": "i18n_permission_resource_project"
+    },
+    {
+      "id": "ROLE",
+      "name": "i18n_permission_resource_role"
+    },
+    {
+      "id": "USER",
+      "name": "i18n_permission_resource_user"
+    },
+    {
+      "id": "CLUSTER",
+      "name": "i18n_permission_resource_cluster"
+    },
+    {
+      "id": "NODE",
+      "name": "i18n_permission_resource_node"
+    },
+    {
+      "id": "PV",
+      "name": "i18n_permission_resource_pv"
+    },
+    {
+      "id": "PVC",
+      "name": "i18n_permission_resource_pvc"
+    },
+    {
+      "id": "QUOTA",
+      "name": "i18n_permission_resource_quota"
+    },
+    {
+      "id": "LIMITAPPLICATION_READ",
+      "name": "i18n_permission_resource_limit"
+    },
+    {
+      "id": "PERMISSION",
+      "name": "i18n_permission_resource_permission"
+    },
+    {
+      "id": "FLOW",
+      "name": "i18n_permission_resource_flow"
+    },
+    {
+      "id": "ORDER",
+      "name": "i18n_permission_resource_order"
+    },
+    {
+      "id": "DASHBOARD",
+      "name": "i18n_permission_resource_dashboard"
+    },
+    {
+      "id": "GROUP",
+      "name": "i18n_permission_resource_user_group"
+    },
+    {
+      "id": "PRICE_POLICY",
+      "name": "i18n_permission_resource_price_policy"
+    }
+  ]
+}

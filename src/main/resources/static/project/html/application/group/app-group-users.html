@@ -1,0 +1,53 @@
+<div ng-cloak ng-controller="AppGroupUsersController">
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>用户</div>
+            <div flex></div>
+            <md-button class="md-primary" ng-click="closeToggleForm()">
+                <div>关闭信息</div>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <filter-tools conditions="conditions" results="filters" search="'true'" execute="list()">
+        <select-columns columns="columns"></select-columns>
+        <div class="filter-item">
+            <md-button class="md-icon-button md-whiteframe-1dp" ng-click="list()">
+                <md-tooltip md-delay="300">刷新</md-tooltip>
+                <md-icon>refresh</md-icon>
+            </md-button>
+        </div>
+    </filter-tools>
+    <table dynamic-table columns="columns">
+        <tbody>
+        <tr ng-repeat="item in items">
+            <td>{{item.username}}</td>
+            <td>{{item.mfaEnabled?'已开启':'未开启'}}</td>
+            <td>
+                <table-menus>
+                    <md-menu-item ng-if="!item.mfaEnabled">
+                        <md-button ng-click="openMFA(item)">
+                            <md-icon class="md-18">edit</md-icon>
+                            开启MFA
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-if="item.mfaEnabled">
+                        <md-button ng-click="closeMFA(item)">
+                            <md-icon>edit</md-icon>
+                            关闭MFA
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item ng-if="item.mfaEnabled">
+                        <md-button ng-click="resetMFA(item)">
+                            <md-icon>edit</md-icon>
+                            重置MFA
+                        </md-button>
+                    </md-menu-item>
+
+                </table-menus>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table-pagination pagination="pagination"></table-pagination>
+</div>

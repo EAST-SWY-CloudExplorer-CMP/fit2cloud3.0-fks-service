@@ -1,0 +1,527 @@
+<div layout-fill ng-controller="DashboardController" class="content-backdrop" ng-cloak ng-init="initDashboard()">
+    <div layout-fill ng-include="background" class="license-background" aria-hidden="true"></div>
+    <div class="md-padding no-top-padding" layout="row" layout-align="start center"
+         layout-wrap>
+        <div style="width: 100%">
+            <div class="dashboard-chart" layout="row" layout-align="start center" flex="100">
+                <div style="margin-left: 8px;" layout="row" layout-align="start center">
+                    <md-input-container>
+                        <md-select class="md-no-underline" ng-model="params.accountId"
+                                   ng-change="clusterChange()">
+                            <md-option ng-value="cluster.id" ng-repeat="cluster in searchClusters">
+                                {{cluster.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+
+<!--            <div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                <div flex="50" style="padding-right: 10px">
+                    <dashboard-pie-chart loading="loadingLayer" setting="podStateChart"></dashboard-pie-chart>
+                </div>
+                <div flex="50">
+                    <dashboard-pie-chart loading="loadingLayer"
+                                         setting="containerStateChart"></dashboard-pie-chart>
+                </div>
+            </div>-->
+
+            <!-- master和worker节点 -->
+            <div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                <div flex="50" style="padding-right: 10px">
+                    <dashboard-pie-chart loading="loadingLayer" setting="masterStateChart"></dashboard-pie-chart>
+                </div>
+                <div flex="50">
+                    <dashboard-pie-chart loading="loadingLayer" setting="workerStateChart"></dashboard-pie-chart>
+                </div>
+            </div>
+
+            <!-- 集群运行状态 -->
+            <div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                <div flex="50" style="padding-right: 10px">
+                    <dashboard-pie-chart loading="loadingLayer" setting="clusterStateChart"></dashboard-pie-chart>
+                </div>
+            </div>
+
+            <!-- 表格 -->
+            <!--<div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                <div flex="50" style="padding-right: 10px">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title" style="font-size: 14px;">容器重启次数 TOP 5</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            Pod
+                                        </th>
+                                        <th width="30%">
+                                            容器
+                                        </th>
+                                        <th width="20%">
+                                            重启次数
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="containerRestartCount in containerRestartCounts">
+                                        <td width="25%">
+                                            <cluster-info id="containerRestartCount.accountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{containerRestartCount.ext}}</md-tooltip>{{containerRestartCount.ext}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{containerRestartCount.name}}</md-tooltip>{{containerRestartCount.name}}</span>
+                                        </td>
+                                        <td width="20%">{{containerRestartCount.count}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+                <div flex="50">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <span class="md-title" style="font-size: 14px;">项目Pod数量 TOP 5</span>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="40%"> 集群</th>
+                                        <th width="40%">
+                                            项目
+                                        </th>
+                                        <th width="20%">
+                                            Pod数量
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="projectPod in projectPods">
+                                        <td>
+                                            <cluster-info id="projectPod.accountId"></cluster-info>
+                                        </td>
+                                        <td>
+                                            {{projectPod.name}}
+                                        </td>
+                                        <td>{{projectPod.count}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                <!-- ETCD服务运行状态 -->
+                <div flex="50" style="padding-right: 10px">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title" style="font-size: 14px;">ETCD服务运行状态</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            运行服务
+                                        </th>
+                                        <th width="30%">
+                                            正常
+                                        </th>
+                                        <th width="20%">
+                                            异常
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="etcd in etcdServices">
+                                        <td width="25%">
+                                            <cluster-info id="etcd.cloudAccountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{etcd.serviceName}}</md-tooltip>{{etcd.serviceName}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{etcd.normalNum}}</md-tooltip>{{etcd.normalNum}}</span>
+                                        </td>
+                                        <td width="20%">{{etcd.abnormalNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+                <!-- API服务运行状态 -->
+                <div flex="50">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <span class="md-title" style="font-size: 14px;">API服务运行状态</span>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            运行服务
+                                        </th>
+                                        <th width="30%">
+                                            正常
+                                        </th>
+                                        <th width="20%">
+                                            异常
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="api in apiServices">
+                                        <td width="25%">
+                                            <cluster-info id="api.cloudAccountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{api.serviceName}}</md-tooltip>{{api.serviceName}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{api.normalNum}}</md-tooltip>{{api.normalNum}}</span>
+                                        </td>
+                                        <td width="20%">{{api.abnormalNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                <!-- Scheduler服务运行状态 -->
+                <div flex="50" style="padding-right: 10px">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title" style="font-size: 14px;">Scheduler服务运行状态</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            运行服务
+                                        </th>
+                                        <th width="30%">
+                                            正常
+                                        </th>
+                                        <th width="20%">
+                                            异常
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="scheduler in schedulerServices">
+                                        <td width="25%">
+                                            <cluster-info id="scheduler.cloudAccountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{scheduler.serviceName}}</md-tooltip>{{scheduler.serviceName}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{scheduler.normalNum}}</md-tooltip>{{scheduler.normalNum}}</span>
+                                        </td>
+                                        <td width="20%">{{scheduler.abnormalNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+                <!-- Controller-Manager服务运行状态 -->
+                <div flex="50">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <span class="md-title" style="font-size: 14px;">Controller-Manager服务运行状态</span>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            运行服务
+                                        </th>
+                                        <th width="30%">
+                                            正常
+                                        </th>
+                                        <th width="20%">
+                                            异常
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="controllerManager in controllerManagerServices">
+                                        <td width="25%">
+                                            <cluster-info id="controllerManager.cloudAccountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{controllerManager.serviceName}}</md-tooltip>{{controllerManager.serviceName}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{controllerManager.normalNum}}</md-tooltip>{{controllerManager.normalNum}}</span>
+                                        </td>
+                                        <td width="20%">{{controllerManager.abnormalNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                &lt;!&ndash; Docker服务运行状态 &ndash;&gt;
+                <div flex="50" style="padding-right: 10px">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title" style="font-size: 14px;">Docker服务运行状态</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            运行服务
+                                        </th>
+                                        <th width="30%">
+                                            正常
+                                        </th>
+                                        <th width="20%">
+                                            异常
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dockerService in dockerServices">
+                                        <td width="25%">
+                                            <cluster-info id="dockerService.cloudAccountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{dockerService.serviceName}}</md-tooltip>{{dockerService.serviceName}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{dockerService.normalNum}}</md-tooltip>{{dockerService.normalNum}}</span>
+                                        </td>
+                                        <td width="20%">{{dockerService.abnormalNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+                &lt;!&ndash; kubelet服务运行状态 &ndash;&gt;
+                <div flex="50">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <span class="md-title" style="font-size: 14px;">kubelet服务运行状态</span>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            运行服务
+                                        </th>
+                                        <th width="30%">
+                                            正常
+                                        </th>
+                                        <th width="20%">
+                                            异常
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="kubelet in kubeletServices">
+                                        <td width="25%">
+                                            <cluster-info id="kubelet.cloudAccountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{kubelet.serviceName}}</md-tooltip>{{kubelet.serviceName}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{kubelet.normalNum}}</md-tooltip>{{kubelet.normalNum}}</span>
+                                        </td>
+                                        <td width="20%">{{kubelet.abnormalNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="dashboard-chart" layout="row" layout-align="space-between" flex="100">
+                <!-- porxy服务运行状态 -->
+                <div flex="50" style="padding-right: 10px">
+                    <div class="dashboard-chart">
+                        <md-card class="md-whiteframe-2dp">
+                            <div class="dashboard-table static-table"
+                                 style="margin-left: 0px;margin-right: 0px;padding:0">
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title" style="font-size: 14px;">porxy服务运行状态</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <table class="table" style="padding: 10px">
+                                    <thead>
+                                    <tr>
+                                        <th width="25%"> 集群</th>
+                                        <th width="25%">
+                                            运行服务
+                                        </th>
+                                        <th width="30%">
+                                            正常
+                                        </th>
+                                        <th width="20%">
+                                            异常
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="proxy in proxyServices">
+                                        <td width="25%">
+                                            <cluster-info id="proxy.cloudAccountId"></cluster-info>
+                                        </td>
+                                        <td width="25%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{proxy.serviceName}}</md-tooltip>{{proxy.serviceName}}</span>
+                                        </td>
+                                        <td width="30%"
+                                            style="max-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                            <span><md-tooltip  md-delay="200" class="f2c-tooltip-user">{{proxy.normalNum}}</md-tooltip>{{proxy.normalNum}}</span>
+                                        </td>
+                                        <td width="20%">{{proxy.abnormalNum}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+            </div>
+
+             <!--<div cg-busy="{promise:loadingLayer,minDuration:500}"
+                 class="dashboard-table md-whiteframe-2dp" flex="100">
+                <div class="static-table">
+                    <table id="_table_" class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                集群
+                            </th>
+                            <th has-permission="NODE:READ">
+                                节点
+                            </th>
+                            <th>
+                                项目
+                            </th>
+                            <th>
+                                Pod
+                            </th>
+                            <th>
+                                容器
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="cluster in clusters">
+                            <td>
+                                <cluster-info id="cluster.cloudAccountId"></cluster-info>
+                            </td>
+                            <td has-permission="NODE:READ">
+                                <a class="md-primary" style="cursor: pointer" href=""
+                                   ng-click="jump(cluster,'node')">{{cluster.node}}</a>
+                            </td>
+                            <td>
+                                <a class="md-primary" style="cursor: pointer" href=""
+                                   ng-click="jump(cluster,'project')">{{cluster.project}}</a>
+                            </td>
+                            <td>
+                                <a class="md-primary" style="cursor: pointer" href=""
+                                   ng-click="jump(cluster,'pod')">{{cluster.pod}}</a>
+                            </td>
+                            <td>
+                                <a class="md-primary" style="cursor: pointer" href=""
+                                   ng-click="jump(cluster,'container')">{{cluster.container}}</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>-->
+
+        </div>
+    </div>
+</div>

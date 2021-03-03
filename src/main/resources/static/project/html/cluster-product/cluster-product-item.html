@@ -1,0 +1,30 @@
+<div class="catalog-item" ng-cloak>
+    <md-card class="catalog-card">
+        <md-card-content>
+            <div layout="row">
+                <div flex="20" layout="column" layout-align="end none">
+                    <img class="catalog-icon" ng-src="{{detail.iconUrl}}"/>
+                </div>
+                <div class="catalog-text" flex="55" layout="column" layout-align="space-between start">
+                    <div class="catalog-text-item">
+                        <md-tooltip md-direction="bottom">
+                            {{detail.name}}
+                        </md-tooltip>
+                        <span class="md-title" ng-bind="detail.name"></span>
+                    </div>
+                    <div class="catalog-text-item">
+                        <md-tooltip md-direction="bottom">
+                            {{detail.description}}
+                        </md-tooltip>
+                        <span ng-bind="detail.description"></span>
+                    </div>
+                    <div style="height: 5px"></div>
+                </div>
+                <div flex="25" layout="column" layout-align="space-between end">
+                    <img ng-src="{{detail.pluginIcon}}"/>
+                    <md-button has-permission="CATALOG_PRODUCT:APPLY" class="md-raised catalog-button" ng-click="submit(detail)">申请</md-button>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

@@ -1,0 +1,54 @@
+<div layout-fill class="content-backdrop" ng-cloak>
+    <div layout="column" layout-fill>
+        <div layout="row" flex>
+            <md-content flex="100">
+                <md-button class="md-primary" ng-click="closeToggleForm()">
+                    <div>关闭信息</div>
+                </md-button>
+                <form name="koFrom" class="md-padding" cg-busy="{promise:loadingLayer,minDuration:500}">
+<!--                    <md-input-container class="md-icon-float md-block">-->
+<!--                        &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;-->
+<!--                        <label>仓库名称</label>-->
+<!--                        <md-icon class="name" style="font-size: 32px">person</md-icon>-->
+<!--                        <input ng-model="detail.name" type="text"-->
+<!--                               placeholder="仓库名称"-->
+<!--                               ng-disabled="!isSave"-->
+<!--                               required>-->
+<!--                    </md-input-container>-->
+
+<!--                    <md-input-container md-no-float class="md-block" layout-gt-xs="row">-->
+<!--                        <label layout-gt-xs>用途描述</label>-->
+<!--                        <md-icon layout-gt-xs md-svg-src="project/icons/password.svg"-->
+<!--                                 class="s36"></md-icon>-->
+<!--                        <input layout-gt-xs ng-model="detail.description" type="text" id="password"-->
+<!--                               placeholder="用途描述"-->
+<!--                               ng-disabled="!isSave"-->
+<!--                               required>-->
+<!--                    </md-input-container>-->
+
+                    <md-input-container md-no-float class="md-block" layout-gt-xs="row" style="margin-bottom: 0px">
+                        <label>yaml文件</label>
+                        <div class="md-padding">
+                            <md-file-chips placeholder="上传文件" max-files="1" business-key="{{detail.id}}"></md-file-chips>
+                        </div>
+                    </md-input-container>
+                </form>
+
+                <div layout="row" layout-align="center" layout-margin>
+                    <md-button class="md-raised md-primary" ng-disabled="koFrom.$invalid"
+                               ng-click="submit(detail)" ng-if="isSave">
+                        保存
+                    </md-button>
+                    <md-button class="md-raised" ng-click="clickCancel()" ng-if="isSave">
+                        取消
+                    </md-button>
+                    <md-button class="md-raised md-primary"
+                               ng-click="clickSave()" ng-if="!isSave">
+                        编辑
+                    </md-button>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>
+

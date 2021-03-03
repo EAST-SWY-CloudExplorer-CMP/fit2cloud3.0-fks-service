@@ -1,0 +1,58 @@
+<div layout-fill class="content-backdrop" ng-cloak ng-controller="KoParamController">
+    <div layout="column" layout-fill>
+        <div layout="row" flex>
+            <md-content flex="100">
+                <form name="koFrom" class="md-padding" cg-busy="{promise:loadingLayer,minDuration:500}">
+                    <md-input-container class="md-icon-float md-block">
+                        <!-- Use floating label instead of placeholder -->
+                        <label>KoAdmin账号</label>
+                        <md-icon class="name" style="font-size: 32px">person</md-icon>
+                        <input ng-model="params.koAdmin" type="text"
+                               placeholder="KoAdmin账号"
+                               ng-disabled="!isSave"
+                               required>
+                    </md-input-container>
+
+                    <md-input-container md-no-float class="md-block" layout-gt-xs="row">
+                        <label layout-gt-xs>KoAdmin密码</label>
+                        <i layout-gt-xs id="eye" class="fa fa-eye f2c-eye" aria-hidden="true"
+                           ng-click="view('password','eye')" ng-if="isSave"></i>
+                        <md-icon layout-gt-xs md-svg-src="project/icons/password.svg"
+                                 class="s36"></md-icon>
+                        <input layout-gt-xs ng-model="params.adminPassword" type="password" id="password"
+                               placeholder="KoAdmin密码"
+                               ng-disabled="!isSave"
+                               required>
+                    </md-input-container>
+
+                    <md-input-container md-no-float class="md-block"
+                                        layout-gt-xs="row"
+                                        style="margin-bottom: 0px">
+                        <label>Ko地址</label>
+                        <md-icon>link</md-icon>
+                        <input style="cursor:pointer;" ng-model="params.koAddress"
+                               placeholder="Ko地址"
+                               ng-disabled="!isSave"
+                               type="text"
+                               required>
+                    </md-input-container>
+                </form>
+
+                <div layout="row" layout-align="center" layout-margin>
+                    <md-button class="md-raised md-primary" ng-disabled="koFrom.$invalid"
+                               ng-click="submit(params)" ng-if="isSave">
+                        保存
+                    </md-button>
+                    <md-button class="md-raised" ng-click="clickSave()" ng-if="isSave">
+                        取消
+                    </md-button>
+                    <md-button class="md-raised md-primary"
+                               ng-click="clickSave()" ng-if="!isSave">
+                        编辑
+                    </md-button>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>
+

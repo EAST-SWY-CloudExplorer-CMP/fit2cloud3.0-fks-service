@@ -1,0 +1,51 @@
+<div layout-fill ng-controller="ClusterController" ng-cloak>
+    <div layout-fill class="cloud-server-info">
+        <md-tabs md-selected="selectedIndex" layout-fill md-dynamic-height md-border-bottom>
+            <md-button class="md-primary" ng-click="closeToggleForm()">
+                <div>关闭信息</div>
+            </md-button>
+            <md-tab label="概览">
+                <div ng-cloak ng-controller="ClusterInfoController" class="tree-table">
+                    <table>
+                        <tr>
+                            <td>名称</td>
+                            <td>{{detail.cloudAccountName}}</td>
+                        </tr>
+                        <tr>
+                            <td>集群版本</td>
+                            <td>{{detail.version == null ? "v1.14.1" : detail.version}}</td>
+                        </tr>
+                        <tr>
+                            <td>部署模型</td>
+                            <td>{{detail.deployType == 1 ? "一主多节点" : "多主多节点"}}</td>
+                        </tr>
+                        <tr>
+                            <td>节点</td>
+                            <td>{{detail.node}}</td>
+                        </tr>
+                        <tr>
+                            <td>状态</td>
+                            <td>{{detail.resourceType == "存量接入" ? detail.status : "运行中"}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </md-tab>
+            <!--<md-tab label="节点">
+                <div ng-cloak ng-controller="ClusterNodesController">
+                    <table dynamic-table columns="columns">
+                        <tbody>
+                        <tr ng-repeat="(index,item) in items">
+                            <td>{{item.name}}</td>
+                            <td>{{item.ip}}</td>
+                            <td>{{item.host_cpu_core}}</td>
+                            <td>{{item.host_memory}}</td>
+                            <td>{{item.os}}</td>
+                            <td>{{item.roles}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </md-tab>-->
+        </md-tabs>
+    </div>
+</div>

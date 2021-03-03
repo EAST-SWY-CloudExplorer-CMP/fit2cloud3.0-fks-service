@@ -1,0 +1,105 @@
+<div layout="column" layout-fill cg-busy="{promise:productEditLoadingLayer,minDuration:500}">
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div ng-if="item.type === 'create'">创建应用</div>
+            <div  ng-if="item.type === 'update'">编辑应用</div>
+        </div>
+    </md-toolbar>
+    <md-content flex="auto">
+        <div wizard="wizard" ng-if="show">
+            <wizard-step id="1">
+                <form name="clientForm" class="md-padding">
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>应用组</label>
+                        <md-select name="ssoKeycloakRealmId" ng-model="item.realmId" required ng-disabled="item.type === 'update'">
+                            <md-option ng-value="keycloakRealm.realmId" ng-repeat="keycloakRealm in keycloakRealms">{{keycloakRealm.realmName}}</md-option>
+                        </md-select>
+
+                        <div ng-messages="clientForm.ssoKeycloakRealmId.$error">
+                            <div ng-message="required">必填.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>应用ID</label>
+                        <input minlength="2" md-maxlength="52" required name="clientId" ng-model="item.clientId" ng-pattern="/^\w+$/">
+                        <div ng-messages="clientForm.clientId.$error">
+                            <div ng-message="required">必填.</div>
+                            <div ng-message="md-maxlength">不要超过52个字符</div>
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                请在2-52字符以内，且只能由数字、字母及下划线组成。
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>协议</label>
+                        <md-select name="protocol" ng-model="item.protocol" required>
+                            <md-option ng-value="protocol.id" ng-repeat="protocol in protocolList">{{protocol.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="clientForm.protocol.$error">
+                            <div ng-message="required">必填.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>是否可用</label>
+                        <md-select name="enabled" ng-model="item.enabled" required>
+                            <md-option ng-value="enable.id" ng-repeat="enable in enableList">{{enable.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="clientForm.enabled.$error">
+                            <div ng-message="required">必填.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Root URL</label>
+                        <input  name="rootUrl" ng-model="item.rootUrl">
+                    </md-input-container>
+
+                </form>
+            </wizard-step>
+
+            <wizard-step id="2">
+                <form name="clientForm" class="md-padding">
+                    <input type="password" autocomplete="new-password" hidden>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>连接方式</label>
+                        <md-select name="accessType" ng-model="item.accessType" required ng-change="onAccessTypeChange(item.accessType)">
+                            <md-option ng-value="accessType.id" ng-repeat="accessType in accessTypes">{{accessType.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="clientForm.accessType.$error">
+                            <div ng-message="required">必填.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm ng-if="showElements">
+                        <label>可用目标地址</label>
+                        <input required name="redirectUris" ng-model="item.redirectUris">
+                        <div class="hint">如有多个地址，请以';'隔开</div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm ng-if="showElements">
+                        <label>Base URL</label>
+                        <input  name="baseUrl" ng-model="item.baseUrl">
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Admin URL</label>
+                        <input  name="adminUrl" ng-model="item.adminUrl">
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-sm ng-if="showElements">
+                        <label>web地址</label>
+                        <input  name="webOrigins" ng-model="item.webOrigins">
+                        <div class="hint">如有多个地址，请以';'隔开</div>
+                    </md-input-container>
+
+                </form>
+            </wizard-step>
+        </div>
+    </md-content>
+</div>

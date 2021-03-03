@@ -1,0 +1,32 @@
+<div layout-fill class="content-backdrop" ng-controller="EventLogGridController" ng-cloak>
+    <div cg-busy="{promise:loadingLayer,minDuration:500}" layout="column" layout-fill>
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <div>监视-事件</div>
+            </div>
+        </md-toolbar>
+
+        <div layout="row" flex>
+            <div class="md-padding" layout="column" flex="100">
+                <table dynamic-table columns="columns" execute="list()">
+                <tbody>
+                <tr ng-repeat="item in items">
+                    <td>{{item.errorCode}}</td>
+                    <td>{{item.lastTimestampFormatted}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.objectType}}</td>
+                    <td>{{item.objectId}}</td>
+                    <td>{{item.objectName}}</td>
+                    <td>{{item.reportingNodeName}}</td>
+                    <td>{{item.eventCount}}</td>
+                </tr>
+                </tbody>
+                </table>
+                <table-pagination pagination="pagination"></table-pagination>
+            </div>
+        </div>
+        <side-form></side-form>
+        <info-form></info-form>
+    </div>
+</div>

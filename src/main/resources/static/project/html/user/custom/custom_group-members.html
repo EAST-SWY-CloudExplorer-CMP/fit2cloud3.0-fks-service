@@ -1,0 +1,21 @@
+<div ng-cloak ng-controller="CustomGroupMembersController">
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>LDAP用户</div>
+            <div flex></div>
+            <md-button class="md-primary" ng-click="closeToggleForm()">
+                <div>关闭信息</div>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <table dynamic-table columns="columns">
+        <tbody>
+        <tr ng-repeat="item in items">
+            <td>{{item.uid}}</td>
+            <td>{{item.cn}}</td>
+            <td>{{item.mail}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table-pagination pagination="pagination"></table-pagination>
+</div>

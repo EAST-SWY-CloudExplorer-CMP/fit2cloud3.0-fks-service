@@ -1,0 +1,79 @@
+<div ng-cloak>
+    <md-toolbar class="content-toolbar">
+        <div class="md-toolbar-tools">
+            <div>新建应用组</div>
+        </div>
+    </md-toolbar>
+    <form name="addAppGroupForm" class="md-padding">
+        <md-input-container class="md-block">
+            <label>应用组名称</label>
+            <input autocomplete="new-password" required name="realmName"  ng-model="item.realmName" minlength="1" maxlength="50" md-maxlength="50" ng-pattern="/^[a-zA-Z]*$/"/>
+            <div ng-messages="addAppGroupForm.realmName.$error">
+                <div ng-message="required">必填.</div>
+                <div ng-message="md-maxlength" >不要超过50个字符</div>
+                <div ng-message-exp="['required', 'minlength' , 'maxlength' , 'pattern']">
+                    应用组名称为1-50位的英文字符
+                </div>
+            </div>
+        </md-input-container>
+
+        <div style="margin-bottom: 30px">
+            <virtual-select
+                    name="enabled{{$index}}"
+                    value="id"
+                    label="name"
+                    items="enableList"
+                    placeholder="是否启用"
+                    result="item.enabled"
+                    required="true"
+            ></virtual-select>
+        </div>
+
+
+        <div style="margin-bottom: 30px">
+            <virtual-select
+                    name="sslRequired{{$index}}"
+                    value="id"
+                    label="name"
+                    items="sslRequiredList"
+                    placeholder="是否需要https"
+                    result="item.sslRequired"
+                    required="true"
+            ></virtual-select>
+        </div>
+
+        <div style="margin-bottom: 30px">
+            <virtual-select-multiple
+                    name="organizationIds{{$index}}"
+                    value="id"
+                    label="name"
+                    items="orgs"
+                    placeholder="添加组织"
+                    results="item.organizationIds"
+                    required="true"
+            ></virtual-select-multiple>
+        </div>
+
+
+        <div style="margin-bottom: 30px">
+            <virtual-select-multiple
+                    name="ldapGroups{{$index}}"
+                    value="dn"
+                    label="description"
+                    items="ldapGroups"
+                    placeholder="设置用户组"
+                    results="item.userGroupDns"
+            ></virtual-select-multiple>
+        </div>
+
+    </form>
+    <div layout="row" layout-align="start center" layout-margin>
+        <md-button class="md-raised" ng-click="closeToggleForm()">
+            取消
+        </md-button>
+        <md-button class="md-raised md-primary" ng-disabled="addAppGroupForm.$invalid"
+                   ng-click="save(item)" >
+            保存
+        </md-button>
+    </div>
+</div>

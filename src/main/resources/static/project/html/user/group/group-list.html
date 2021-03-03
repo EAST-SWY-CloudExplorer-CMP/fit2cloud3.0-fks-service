@@ -1,0 +1,87 @@
+<div layout-fill class="content-backdrop" ng-controller="GroupController" ng-cloak>
+    <div cg-busy="{promise:loadingLayer,minDuration:500}" layout="column" layout-fill>
+        <md-toolbar class="content-toolbar">
+            <div class="md-toolbar-tools">
+                <div>LDAP用户组列表</div>
+                <div style="float: right">
+                    <md-button class="md-primary" ng-click="create()"
+                               has-permissions="GROUP:READ+CREATE">
+                        <md-icon>person_add</md-icon>
+                        新建
+                    </md-button>
+                    <md-button class="md-primary" ng-click="sync()"
+                               has-permissions="GROUP:READ+SYNC">
+                        <md-icon>sync</md-icon>
+                        同步
+                    </md-button>
+                </div>
+            </div>
+        </md-toolbar>
+
+        <div layout="row" flex>
+            <div class="md-padding" layout="column" flex="100">
+                <filter-tools conditions="conditions" results="filters" search="'true'" execute="list()">
+                    <select-columns columns="columns"></select-columns>
+                    <div class="filter-item">
+                        <md-button class="md-icon-button md-whiteframe-1dp" ng-click="list()">
+                            <md-tooltip md-delay="300">刷新</md-tooltip>
+                            <md-icon>refresh</md-icon>
+                        </md-button>
+                    </div>
+                    <div class="filter-item">
+                        <md-button class="md-icon-button md-whiteframe-1dp" ng-click="export()">
+                            <md-tooltip md-delay="300">导出Excel</md-tooltip>
+                            <md-icon>cloud_download</md-icon>
+                        </md-button>
+                    </div>
+                </filter-tools>
+
+                <div style="margin-top: 10px">
+                     <div style="float: left">目录：</div>
+                     <div style="float: left" ng-repeat="parentLdapDn in parentLdapDns">
+                         <u  ng-click="listInner(parentLdapDn)" style="color: green;cursor:pointer ">{{parentLdapDn}} </u><span>{{$last?"":">>"}}</span>
+                     </div>
+                </div>
+
+                <table dynamic-table columns="columns" execute="list({sql: sql})">
+                    <tbody>
+                    <tr ng-repeat="item in items">
+                        <td>{{item.ou}}(<u style="color: green;cursor:pointer " ng-click="listInner(item.dn)" >{{item.count}}</u>)</td>
+                        <td>{{item.description}}</td>
+                        <td>
+                            <span ng-repeat="organization in item.organizations"  style="display:block;width: 100%">{{organization.name}}</span>
+
+                        </td>
+                        <td><u style="color: green;cursor:pointer " ng-click="showMembers(item)">{{item.userCount}}</u></td>
+                        <td>{{item.createPeople=='SYSTEM'?'系统':item.createPeople}}</td>
+                        <td has-permissions="GROUP:READ+EDIT,USER:READ+DELETE,USER:READ+RESET_PASSWORD,USER:READ+LOG">
+                            <!--设置名成加op="'其他名称'"，默认的名称为"操作"；设置宽度加width="4 或其他整数"-->
+                            <table-menus>
+                                <md-menu-item has-permissions="GROUP:READ+EDIT" ng-if="!isOrgAdmin ||
+                                    isOrgAdmin && item.organizations && item.organizations.length==1 && item.organizations[0].id!='0'">
+                                    <md-button ng-click="edit(item)">
+                                        <md-icon class="md-18">edit</md-icon>
+                                        编辑
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-divider
+                                        has-permissions="GROUP:READ+DELETE"></md-menu-divider>
+                                <md-menu-item has-permissions="GROUP:READ+DELETE" ng-if="!isOrgAdmin ||
+                                    isOrgAdmin && item.organizations && item.organizations.length==1 && item.organizations[0].id!='0'">
+                                    <md-button ng-click="delete(item)">
+                                        <md-icon>delete</md-icon>
+                                        删除
+                                    </md-button>
+                                </md-menu-item>
+                            </table-menus>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table-pagination pagination="pagination"></table-pagination>
+            </div>
+        </div>
+        <side-form></side-form>
+        <info-form></info-form>
+    </div>
+</div>
